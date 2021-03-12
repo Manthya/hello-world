@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysies of your Data</title>
+</head>
+<body>
+
+{% for table in tables %}
+            {{ table|safe }}
+{% endfor %}
+<hr>
+{% for table in tables1 %}
+            {{ table|safe }}
+{% endfor %}
+<hr>
+<form method="POST" action="" enctype="multipart/form-data">
+    <label for='x_axis'>Choose X Axis:</label>
+    <select name='x_axis' id='x_axis'>
+    {% for column in columns %}
+        <option value="{{ column }}">{{column}}</option>
+    {% endfor %}
+    </select>
+    <span class="error" name='x_axis_error' style="color:red">{{x_error}}</span>
+    
+    <label for='x_axis_datatype'>Choose Time Data type:</label>
+    <select name='x_axis_datatype' id='x_axis_datatype'>
+    {% for dt in datatype_list %}
+        <option value="{{ dt }}">{{dt}}</option>
+    {% endfor %}
+    </select>
+    <span class="error" name='x_axis_datatype_error' style="color:red">{{x_axis_datatype_error}}</span>
+<br>
+<br>
+    <label for='y_axis'>Choose Y Axis:</label>
+    <select multiple name='y_axis' id='y_axis' multiple class="chosen-select">
+    {% for column in columns %}
+        <option value="{{ column }}">{{column}}</option>
+    {% endfor %}
+    </select>
+    <span class="error" name='y_axis_error' style="color:red">{{y_error}}</span>
+
+    <label for='y_axis_filter'>Filter By:</label>
+    <select name='y_axis_filter' id='y_axis_filter'>
+    {% for column in ['None']+columns %}
+        <option value="{{ column }}">{{column}}</option>
+    {% endfor %}
+    </select>
+    <span class="error" name='filter_error' style="color:red">{{filter_error}}</span>
+<br>
+<br>
+    {% if many_to_one == 1 %}
+        <label for='data_filter'>Choose Filtered Data column:</label>
+        <select multiple name='data_filter' id='data_filter' multiple class="chosen-select">
+        {% for dt in data_filter %}
+            <option value="{{ dt }}">{{dt}}</option>
+        {% endfor %}
+        </select>
+    {% endif %}
+<br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
